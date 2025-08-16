@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform-argocd
+  namespace: argocd
+spec:
+  project: platform
+  source:
+    repoURL: "https://github.com/alx0594/arogcd-infra.git"
+    targetRevision: main
+    path: platforms/argocd
+    helm:
+      valueFiles:
+        - values-dev.yaml # troque para hom/prd quando necessário via branch ou pastas
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

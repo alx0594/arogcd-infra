@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minha-api
+  namespace: argocd
+spec:
+  project: platform
+  source:
+    repoURL: https://github.com/empresa/minha-api-config.git
+    targetRevision: main
+    path: charts/minha-api
+    helm:
+      valueFiles:
+        - values-dev.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev-minha-api
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

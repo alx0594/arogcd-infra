@@ -1,0 +1,10 @@
+apiVersion: v2
+name: platform-argocd
+description: Umbrella chart para instalar e configurar o Argo CD
+type: application
+version: 0.1.0
+
+dependencies:
+  - name: argo-cd
+    version: 7.7.10 # fixe a versão
+    repository: https://argoproj.github.io/argo-helm
